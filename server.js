@@ -60,6 +60,13 @@ function setup()
 
    app.use(express.static(__dirname + "/app/assets"));
 
+   app.use(express.session({
+       secret: "s3Cur3",
+       cookie: {
+       httpOnly: true,
+       secure: true
+       }
+   }));
    app.use(logger('combined'));
 
    // intialize marked library
@@ -121,9 +128,13 @@ function setup()
 
    // Template system setup
    swig.setDefaults({
-	 autoescape: false
+	 autoescape: true
     });
 
+   //swig.init({
+   //    root: __dirname+ "/app/views",
+    //   autoescape: true
+   //});
    var server = app.listen(8080);
 
    console.log("Listening on " + 8080);
